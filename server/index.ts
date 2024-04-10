@@ -15,14 +15,16 @@ import express from 'express'
 import compression from 'compression'
 import { renderPage } from 'vike/server'
 import { root } from './root.js'
+import fs from 'fs'
+
 const isProduction = process.env.NODE_ENV === 'production'
+const app = express()
 
 startServer()
 
 async function startServer() {
-  const app = express()
-
-  app.use(compression())
+  app.use(compression());
+  app.use(express.json());
 
   // Vite integration
   if (isProduction) {
@@ -43,6 +45,18 @@ async function startServer() {
     ).middlewares
     app.use(viteDevMiddleware)
   }
+
+  app.get('/get-page-mode', (req, res) => {
+    const data = fs.readFileSync('pageMode.json', 'utf8');
+    const { mode } = JSON.parse(data);
+    res.json({ pageMode: mode });
+  });
+  
+  app.post('/update-page-mode', (req, res) => {
+    const { pageMode } = req.body; // Assuming you send the new mode in the request body
+    fs.writeFileSync('pageMode.json', JSON.stringify({ mode: pageMode }));
+    res.status(200).send('Page mode updated successfully!');
+  });
 
   // ...
   // Other middlewares (e.g. some RPC middleware such as Telefunc)
@@ -69,6 +83,7 @@ async function startServer() {
       // For HTTP streams use httpResponse.pipe() instead, see https://vike.dev/streaming
       res.send(body)
     }
+    
   })
 
   const port = process.env.PORT || 3000
