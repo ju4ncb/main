@@ -2,6 +2,8 @@ interface Props {
   estadoInicio: number;
 }
 
+function checkIfData() {}
+
 const InicioCuerpo = ({ estadoInicio }: Props) => {
   switch (estadoInicio) {
     case 1:
@@ -13,6 +15,10 @@ const InicioCuerpo = ({ estadoInicio }: Props) => {
           </div>
         </>
       );
+    case 2:
+      return <>pipopipo</>;
+    case 3:
+      return <>something changed</>;
     default:
       return <></>;
   }

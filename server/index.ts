@@ -15,12 +15,54 @@ import express from 'express'
 import compression from 'compression'
 import { renderPage } from 'vike/server'
 import { root } from './root.js'
+import dbConfig from './dbConfig.js';
 import fs from 'fs'
+import mysql from "mysql2/promise"
 
 const isProduction = process.env.NODE_ENV === 'production'
+// app
 const app = express()
 
+// leagueName
+let lgName = "";
+
+// db connection
+const pool = mysql.createPool(dbConfig);
+
 startServer()
+
+async function insertNewRow(tableName: string, columns: string[], values: string[], res: express.Response) {
+  let columnsQuery = columns[0];
+  let valuesQuery = "?";
+  if (columns.length === 0 || values.length === 0){
+    res.status(200).send("I can't guess columns bro");
+    return;
+  } else if (columns.length != values.length){
+    res.status(200).send("Are you restarted?");
+    return;
+  }
+  for (let i = 1; i < columns.length; i++){
+    columnsQuery += ", " + columns[i];
+    valuesQuery += ", ?";
+  }
+  try {
+    const connection = await pool.getConnection();
+    const query = `
+      INSERT INTO ${tableName} (${columnsQuery})
+      VALUES (${valuesQuery});`;
+
+    // Provide actual values for your columns
+    const [rows] = await connection.execute(query, values);
+    console.log('New row inserted:', rows);
+
+    connection.release(); // Release the connection
+  } catch (error) {
+    console.log(error);
+    res.status(200).send(error);
+    return;
+  }
+  res.status(200).send('League inserted successfully!');
+}
 
 async function startServer() {
   app.use(compression());
@@ -47,15 +89,34 @@ async function startServer() {
   }
 
   app.get('/get-page-mode', (req, res) => {
-    const data = fs.readFileSync('pageMode.json', 'utf8');
-    const { mode } = JSON.parse(data);
-    res.json({ pageMode: mode });
+    const data = fs.readFileSync('data.json', 'utf8');
+    const { mode, leagueName } = JSON.parse(data);
+    res.json({ pageMode: mode, leagueName: leagueName });
   });
   
   app.post('/update-page-mode', (req, res) => {
-    const { pageMode } = req.body; // Assuming you send the new mode in the request body
-    fs.writeFileSync('pageMode.json', JSON.stringify({ mode: pageMode }));
+    const { mode, leagueName } = req.body;
+    const existingData = JSON.parse(fs.readFileSync('data.json', 'utf-8'));
+
+    switch (mode){
+      case 1:
+        lgName = "";
+        break;
+      case 2:
+        lgName = leagueName;
+        break;
+    }
+
+    existingData.mode = mode;
+    existingData.leagueName = lgName;
+
+    fs.writeFileSync('data.json', JSON.stringify(existingData, null, 2));
+    
     res.status(200).send('Page mode updated successfully!');
+  });
+
+  app.post('/insert-league', (req, res) => {
+    insertNewRow("Ligas", ["nombre", "esta_activa"], [req.body.nombreLiga, 1], res);
   });
 
   // ...

@@ -9,16 +9,6 @@ const NavContent = ({ estadoInicio, onChangePageMode }: Props) => {
   const handleModeChange = (newMode: number) => {
     // Update local state
     onChangePageMode(newMode);
-
-    // Send updated mode to the server
-    fetch("/update-page-mode", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ pageMode: newMode }),
-    })
-      .then((response) => response.text())
-      .then((message) => console.log(message))
-      .catch((error) => console.error("Error updating page mode:", error));
   };
 
   switch (estadoInicio) {
@@ -45,6 +35,8 @@ const NavContent = ({ estadoInicio, onChangePageMode }: Props) => {
           Reiniciar liga
         </p>
       );
+    default:
+      return <></>;
   }
 };
 
@@ -56,7 +48,6 @@ const Nav = ({ estadoInicio, onChangePageMode }: Props) => {
     } else {
       setListState(true);
     }
-    console.log(listState);
   }
   return (
     <div className="nav">

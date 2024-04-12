@@ -115,4 +115,61 @@ body {
   font-size: 68px;
 }
 
+.form-inicio-pagina {
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 0;
+  background: rgba(30, 34, 39, 0.96);
+  padding: 50px;
+  height: 240px;
+  border: #6affa3 solid 2px;
+  border-top: none;
+  border-bottom-left-radius: 50px;
+  border-bottom-right-radius: 50px;
+}
+.form-inicio-pagina label {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.form-inicio-pagina label span {
+  position: absolute;
+  cursor: pointer;
+  top: 10px;
+  right: 10px;
+  font-size: 24px;
+  transition: all 0.15s ease-in;
+}
+.form-inicio-pagina label span:hover {
+  top: 9px;
+  right: 9px;
+  font-size: 26px;
+  color: #ff6a6a;
+}
+.form-inicio-pagina label input {
+  color: #6affa3;
+  padding: 5px;
+}
+.form-inicio-pagina label button {
+  cursor: pointer;
+  background: #292e35;
+  color: #6affa3;
+  border: #6affa3 solid 1px;
+  padding: 5px;
+  border-radius: 10px;
+  transition: background-color 0.15s ease-in;
+}
+.form-inicio-pagina label button:hover {
+  background-color: #131518;
+}
+
+.input_liga {
+  background: #292e35;
+  color: white;
+  border: 1px solid white;
+  border-radius: 4px;
+}
+
 /*# sourceMappingURL=App.css.map */
