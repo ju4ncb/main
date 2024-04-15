@@ -1,17 +1,17 @@
 import { useState, useEffect } from "react";
+import ComboboxInicio from "./ComboboxInicio";
 
 const Inicio = () => {
   const [comboboxActivo, setComboboxActivo] = useState(true);
+  const [comboboxOculto, setComboboxOculto] = useState(false);
   const [opciones, setOpciones] = useState([
     <option key={"it's a beautiful ride"}>Aún no hay na</option>,
   ]);
 
   function handleClickVerTabla() {
-    setComboboxActivo(false);
+    setComboboxOculto(true);
     setTimeout(() => {
-      const comboBox = document.getElementById("contenedorCombobox");
-      comboBox?.classList.remove("oculto");
-      comboBox?.classList.add("desactivado");
+      setComboboxActivo(false);
     }, 1000);
   }
 
@@ -47,25 +47,13 @@ const Inicio = () => {
   return (
     <main className="inicio_main">
       <div style={{ height: 100 }} />
-      <div
-        className={
-          comboboxActivo ? "contenedor_combobox" : "contenedor_combobox oculto"
-        }
-        id="contenedorCombobox"
-      >
-        <div className="cabeza">
-          <p>Seleccione una liga:</p>
-        </div>
-        <div className="cuerpo">
-          <select name="ligas" id="ligas">
-            {opciones}
-          </select>
-          <button onClick={comboboxActivo ? handleClickVerTabla : () => {}}>
-            Ver tabla
-          </button>
-        </div>
-        <hr style={{ display: "none" }} />
-      </div>
+      {comboboxActivo && (
+        <ComboboxInicio
+          comboboxOculto={comboboxOculto}
+          onClickVerTabla={handleClickVerTabla}
+          opciones={opciones}
+        />
+      )}
     </main>
   );
 };
