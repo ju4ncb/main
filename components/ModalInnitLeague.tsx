@@ -21,40 +21,37 @@ const ModalInnitLeague = ({ onSubmit, onClose }: Props) => {
       .then((response) => response.text())
       .then((message) => {
         console.log(message);
-        if (message !== "League inserted successfully!") {
+        if (message != "League inserted successfully!") {
           err = true;
+        }
+        if (!err) {
+          let data = {
+            mode: 2,
+            leagueName: nombreLiga,
+          };
+
+          onSubmit();
+
+          // Send updated mode to the server
+          fetch("/update-page-mode", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(data),
+          })
+            .then((response) => response.text())
+            .then((message) => {
+              console.log(message);
+            })
+            .catch((error) => {
+              console.error("Error updating page mode:", error);
+            });
+        } else {
+          alert("Ya existe esa liga");
         }
       })
       .catch((error) => {
         console.error("Error inserting new league:", error);
-        err = true;
-      });
-
-    let data = {
-      mode: 2,
-      leagueName: nombreLiga,
-    };
-
-    if (err) {
-      console.log(err);
-      return;
-    }
-
-    onSubmit();
-
-    // Send updated mode to the server
-    fetch("/update-page-mode", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
-    })
-      .then((response) => response.text())
-      .then((message) => {
-        console.log(message);
-      })
-      .catch((error) => {
-        console.error("Error updating page mode:", error);
-        err = true;
+        console.log("mmi");
       });
   }
   return (
@@ -69,7 +66,7 @@ const ModalInnitLeague = ({ onSubmit, onClose }: Props) => {
           maxLength={50}
           onChange={(event) => setNombreLiga(event.target.value)}
         />
-        <button type="submit">Enviar</button>
+        <button type="submit">Ingresar</button>
       </label>
     </form>
   );

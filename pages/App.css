@@ -1,0 +1,292 @@
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css");
+* {
+  margin: 0;
+  padding: 0;
+  color: #fff;
+}
+
+header {
+  background: #1e2227;
+  display: flex;
+  height: 120px;
+  align-items: center;
+  text-align: center;
+  border-bottom: solid #fff 3px;
+}
+
+body {
+  font-family: "Quicksand", "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans", Arial, sans-serif;
+  background: #292e35;
+  display: flex;
+  flex-direction: column;
+}
+
+.home_container {
+  display: flex;
+  flex: 1;
+  justify-content: center;
+}
+.home_container i {
+  cursor: pointer;
+  transition: color 0.2s ease-in-out;
+}
+.home_container i:hover {
+  color: #6affa3;
+}
+
+.title_container {
+  display: flex;
+  flex: 10;
+  justify-content: center;
+}
+
+.go_to_admin {
+  user-select: none;
+  display: flex;
+  flex: 1;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  background: #37ff84;
+  transition: background-color 0.2s ease-in-out;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  cursor: pointer;
+}
+.go_to_admin p {
+  color: black;
+  font-size: 20px;
+}
+
+.go_to_admin:hover {
+  background: #9dffc2;
+}
+
+.nav {
+  flex: 1;
+  display: block;
+  height: 100%;
+  margin-top: 0px;
+}
+
+.list_icon {
+  user-select: none;
+  display: flex;
+  transition: background-color 0.2s ease-in-out, border-radius 0.2s ease-in-out;
+  border-radius: 10px;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.list_icon:hover {
+  background: #393f49;
+}
+
+.list_icon_opened {
+  background: #393f49;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.list_nav {
+  display: flex;
+  flex-direction: column;
+  background: #393f49;
+  width: 100%;
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+.list_nav p {
+  cursor: pointer;
+  padding: 10px;
+  font-style: initial;
+  font-size: 16px;
+  transition: background-color 0.2s ease-in-out;
+  border-radius: 10px;
+}
+.list_nav p:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+.list_nav .red {
+  background: #ff8484;
+}
+.list_nav .red:hover {
+  background: #ff9d9d;
+}
+.list_nav .green {
+  color: black;
+  background: #84ffb3;
+}
+.list_nav .green:hover {
+  background: #9dffc2;
+}
+
+.show {
+  opacity: 1;
+}
+
+.contenedor_inicio {
+  display: flex;
+  height: 600px;
+  justify-content: center;
+  align-items: center;
+}
+
+.inicio_vacio {
+  display: flex;
+  flex-direction: row;
+  background: #343a43;
+  height: 300px;
+  width: 800px;
+  gap: 2.5rem;
+  border-radius: 100px;
+  border: solid #fff 3px;
+  justify-content: center;
+  align-items: center;
+}
+.inicio_vacio p {
+  font-size: 36px;
+}
+.inicio_vacio i {
+  font-size: 68px;
+}
+
+.form-inicio-pagina {
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 0;
+  background: rgba(30, 34, 39, 0.96);
+  padding: 50px;
+  height: 240px;
+  border: #6affa3 solid 2px;
+  border-top: none;
+  border-bottom-left-radius: 50px;
+  border-bottom-right-radius: 50px;
+}
+.form-inicio-pagina label {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.form-inicio-pagina label span {
+  position: absolute;
+  cursor: pointer;
+  top: 10px;
+  right: 10px;
+  font-size: 24px;
+  transition: all 0.2s ease-in-out;
+}
+.form-inicio-pagina label span:hover {
+  top: 9px;
+  right: 9px;
+  font-size: 26px;
+  color: #ff6a6a;
+}
+.form-inicio-pagina label input {
+  color: #6affa3;
+  padding: 5px;
+}
+.form-inicio-pagina label button {
+  cursor: pointer;
+  background: #292e35;
+  color: #6affa3;
+  border: #6affa3 solid 1px;
+  padding: 5px;
+  border-radius: 10px;
+  transition: background-color 0.2s ease-in-out;
+}
+.form-inicio-pagina label button:hover {
+  background-color: #131518;
+}
+
+.input_liga {
+  background: #292e35;
+  color: white;
+  border: 1px solid white;
+  border-radius: 4px;
+}
+
+.inicio_main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.contenedor_combobox {
+  display: flex;
+  flex-direction: column;
+  height: 200px;
+  width: 300px;
+  align-items: center;
+  justify-content: center;
+  background: #1e2227;
+  border-radius: 20px;
+  gap: 1rem;
+  transition: opacity 1s ease-in-out;
+}
+.contenedor_combobox .cabeza {
+  flex: 1;
+  display: flex;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  background: #6affa3;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+.contenedor_combobox .cabeza p {
+  font-size: 18px;
+  color: #292e35;
+}
+.contenedor_combobox .cuerpo {
+  flex: 3;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+}
+.contenedor_combobox .cuerpo select {
+  background: #292e35;
+  border-color: #6affa3;
+  border-radius: 10px;
+  width: 80%;
+  height: 40px;
+  font-size: 15px;
+}
+.contenedor_combobox .cuerpo select:focus {
+  outline: none;
+}
+.contenedor_combobox .cuerpo button {
+  height: 30px;
+  width: 120px;
+  transform: translateY(-10px);
+  border: #292e35 solid 1px;
+  border-radius: 20px;
+  cursor: pointer;
+  background: #6affa3;
+  color: #292e35;
+  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+}
+.contenedor_combobox .cuerpo button:hover {
+  background: #9dffc2;
+  color: black;
+  border-color: white;
+}
+
+.oculto {
+  opacity: 0;
+}
+
+.desactivado {
+  display: none;
+}
+
+/*# sourceMappingURL=App.css.map */

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import Header from "../../components/Header";
-import InicioCuerpo from "../../components/InicioCuerpo";
+import HeaderAdmin from "../../components/HeaderAdmin";
+import CuerpoAdmin from "../../components/CuerpoAdmin";
 import ModalInnitLeague from "../../components/ModalInnitLeague";
 
 // Si el estado es 1, no ha empezado la liga
@@ -10,6 +10,7 @@ import ModalInnitLeague from "../../components/ModalInnitLeague";
 function App() {
   const [estadoInicio, setEstadoInicio] = useState(0);
   const [InnitLiga, setInnitLiga] = useState(false);
+  const [ChooseLiga, setChooseLiga] = useState(false);
   useEffect(() => {
     // Fetch initial page mode from the server
     fetch("/get-page-mode")
@@ -28,11 +29,18 @@ function App() {
         toggleModalInnitLeague();
         break;
       case 3:
+        console.log("eat shit");
+      case 4:
+        toggleModalChooseLeague();
     }
   };
 
   const toggleModalInnitLeague = () => {
     setInnitLiga(true);
+  };
+
+  const toggleModalChooseLeague = () => {
+    setChooseLiga(true);
   };
 
   const modeChange = (newMode: number) => {
@@ -52,13 +60,24 @@ function App() {
 
   return (
     <>
-      <Header
+      <HeaderAdmin
         estadoInicio={estadoInicio}
         onChangePageMode={handleChangePageMode}
       />
       <div className="contenedor_inicio">
-        <InicioCuerpo estadoInicio={estadoInicio} />
+        <CuerpoAdmin estadoInicio={estadoInicio} />
         {InnitLiga && (
+          <ModalInnitLeague
+            onSubmit={() => {
+              modeChange(2);
+              setInnitLiga(false);
+            }}
+            onClose={() => {
+              setInnitLiga(false);
+            }}
+          />
+        )}
+        {ChooseLiga && (
           <ModalInnitLeague
             onSubmit={() => {
               modeChange(2);

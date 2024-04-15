@@ -14,9 +14,12 @@ const NavContent = ({ estadoInicio, onChangePageMode }: Props) => {
   switch (estadoInicio) {
     case 1:
       return (
-        <p className="green" onClick={() => handleModeChange(2)}>
-          Iniciar liga
-        </p>
+        <>
+          <p onClick={() => handleModeChange(4)}> Escoger liga </p>
+          <p className="green" onClick={() => handleModeChange(2)}>
+            Crear liga
+          </p>
+        </>
       );
     case 2:
       return (
@@ -51,15 +54,13 @@ const Nav = ({ estadoInicio, onChangePageMode }: Props) => {
   }
   return (
     <div className="nav">
-      <i
-        className={
-          listState
-            ? "bi bi-list list_icon list_icon_opened"
-            : "bi bi-list list_icon"
-        }
+      <div
+        className={listState ? "list_icon list_icon_opened" : "list_icon"}
         style={{ fontSize: 42 }}
         onClick={() => changeListState()}
-      ></i>
+      >
+        <i className="bi bi-list"></i>
+      </div>
       <div className={listState ? "list_nav show" : "list_nav"}>
         <NavContent
           estadoInicio={estadoInicio}

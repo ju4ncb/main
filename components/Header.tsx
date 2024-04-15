@@ -1,15 +1,19 @@
-import Nav from "./Nav";
+import React from "react";
 
-interface Props {
-  estadoInicio: number;
-  onChangePageMode(pageMode: number): void;
-}
-
-const Header = ({ estadoInicio, onChangePageMode }: Props) => {
+const Header = () => {
   return (
     <header>
-      <h1 style={{ flex: 1, fontSize: 26 }}>LIGA ELECTRICARIBE</h1>
-      <Nav estadoInicio={estadoInicio} onChangePageMode={onChangePageMode} />
+      <div className="title_container">
+        <h1 style={{ flex: 1, fontSize: 26 }}>LIGA ELECTRICARIBE</h1>
+      </div>
+      <div
+        className="go_to_admin"
+        onClick={() => {
+          window.location.href = "/admin";
+        }}
+      >
+        <p>Aministrar</p>
+      </div>
     </header>
   );
 };

@@ -64,6 +64,43 @@ async function insertNewRow(tableName: string, columns: string[], values: string
   res.status(200).send('League inserted successfully!');
 }
 
+async function query(tableName: string, columns: string, condition: string, res: express.Response) {
+  try {
+    const connection = await pool.getConnection();
+    const query = `
+      SELECT ${columns} FROM ${tableName}
+      WHERE (${condition});`;
+
+    // Provide actual values for your columns
+    const [rows] = await connection.execute(query);
+    console.log(rows);
+    connection.release(); // Release the connection
+    res.json({ ligas: rows });
+  } catch (error) {
+    console.log(error);
+    res.status(200).send(error);
+    return;
+  }
+}
+
+async function cleanQuery(tableName: string, columns: string, res: express.Response) {
+  try {
+    const connection = await pool.getConnection();
+    const query = `
+      SELECT ${columns} FROM ${tableName}
+    `;
+
+    // Provide actual values for your columns
+    const [rows] = await connection.execute(query);
+    connection.release(); // Release the connection
+    res.json({ ligas: rows });
+  } catch (error) {
+    console.log(error);
+    res.status(200).send(error);
+    return;
+  }
+}
+
 async function startServer() {
   app.use(compression());
   app.use(express.json());
@@ -94,6 +131,11 @@ async function startServer() {
     res.json({ pageMode: mode, leagueName: leagueName });
   });
   
+  app.post('/get-ligas', (req, res) => {
+    const { table, columns } = req.body;
+    cleanQuery(table, columns, res);
+  });
+
   app.post('/update-page-mode', (req, res) => {
     const { mode, leagueName } = req.body;
     const existingData = JSON.parse(fs.readFileSync('data.json', 'utf-8'));
